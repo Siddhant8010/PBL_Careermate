@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerMate - Student Dashboard</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>CareerMate</span>
+            </div>
+            <div class="header-right">
+                <!-- Added dark mode toggle button -->
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                </button>
+                <div class="profile-dropdown">
+                    <div class="profile-trigger" onclick="toggleProfileDropdown()">
+                        <img src="/placeholder.svg?height=40&width=40" alt="Profile" class="profile-avatar">
+                        <!-- Fixed profile name spacing -->
+                        <span class="profile-name">Alex Johnson</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="dropdown-menu" id="profileDropdown">
+                        <a href="#" onclick="showPage('profile')"><i class="fas fa-user"></i> Profile</a>
+                        <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+                
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" onclick="showPage('dashboard')" data-page="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" onclick="showPage('tests')" data-page="tests">
+                    <i class="fas fa-clipboard-list"></i>
+                    <span>My Tests</span>
+                </a>
+                <a href="#" class="nav-item" onclick="showPage('recommendations')" data-page="recommendations">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Recommendations</span>
+                </a>
+                <a href="#" class="nav-item" onclick="showPage('career-paths')" data-page="career-paths">
+                    <i class="fas fa-road"></i>
+                    <span>Career Paths</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Page -->
+            <div id="dashboard-page" class="page active">
+                <div class="page-header">
+                    <h1>Dashboard</h1>
+                    <p>Track your progress and explore your career journey</p>
+                </div>
+
+                <div class="dashboard-grid">
+                    <!-- Welcome Card -->
+                    <div class="card welcome-card">
+                        <div class="card-content">
+                            <!-- Removed gamification badge -->
+                            <h2>Welcome back, Alex!</h2>
+                            <p>You're doing great! Keep exploring your career options.</p>
+                            <div class="progress-stats">
+                                <div class="stat">
+                                    <span class="stat-number">3</span>
+                                    <span class="stat-label">Tests Completed</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-number">85%</span>
+                                    <span class="stat-label">Profile Complete</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Test Progress Tracker -->
+                    <!-- Test Result Card -->
+<div class="card progress-card">
+    <div class="card-header">
+        <h3>Test Result</h3>
+        <span class="progress-percentage">75%</span>
+    </div>
+    <div class="card-content">
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 75%"></div>
+        </div>
+        <div class="next-step">
+            <p><strong>Latest Result:</strong> Aptitude Test - 75%</p>
+            <button class="btn btn-primary" onclick="takeTest()">Retake Test</button>
+        </div>
+    </div>
+</div>
+
+
+                    <!-- Recommended Stream Card -->
+                    <div class="card stream-card">
+                        <div class="card-header">
+                            <h3>Recommended Stream</h3>
+                            <div class="confidence-score">92% Match</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="stream-recommendation">
+                                <!-- Simplified stream icon -->
+                                <div class="stream-icon">
+                                    <i class="fas fa-flask"></i>
+                                </div>
+                                <div class="stream-info">
+                                    <h4>Science Stream</h4>
+                                    <p>Based on your analytical skills and interest in problem-solving</p>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline" onclick="showPage('recommendations')">View Details</button>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="card quick-links-card">
+                        <div class="card-header">
+                            <h3>Quick Actions</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="quick-links">
+                                <button class="quick-link-btn" onclick="takeTest()">
+                                    <i class="fas fa-plus"></i>
+                                    <span>Take New Test</span>
+                                </button>
+                                <button class="quick-link-btn" onclick="showPage('career-paths')">
+                                    <i class="fas fa-search"></i>
+                                    <span>Explore Careers</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Tests Page -->
+            <div id="tests-page" class="page">
+                <div class="page-header">
+                    <h1>My Tests</h1>
+                    <p>View your completed assessments and results</p>
+                </div>
+
+                <div class="tests-grid">
+                    <div class="test-card completed">
+                        <div class="test-header">
+                            <h3>Aptitude Test</h3>
+                            <span class="test-score">85/100</span>
+                        </div>
+                        <div class="test-content">
+                            <p class="test-date">Completed on March 15, 2024</p>
+                            <div class="test-subjects">
+                                <span class="subject-tag">Mathematics: 90%</span>
+                                <span class="subject-tag">Logical Reasoning: 80%</span>
+                            </div>
+                            <button class="btn btn-outline">View Report</button>
+                        </div>
+                    </div>
+
+                    <div class="test-card completed">
+                        <div class="test-header">
+                            <h3>Personality Assessment</h3>
+                            <span class="test-score">Analytical</span>
+                        </div>
+                        <div class="test-content">
+                            <p class="test-date">Completed on March 10, 2024</p>
+                            <div class="test-subjects">
+                                <span class="subject-tag">Introversion: 65%</span>
+                                <span class="subject-tag">Thinking: 85%</span>
+                            </div>
+                            <button class="btn btn-outline">View Report</button>
+                        </div>
+                    </div>
+
+                    <div class="test-card pending">
+                        <div class="test-header">
+                            <h3>Interest Assessment</h3>
+                            <span class="test-status">Pending</span>
+                        </div>
+                        <div class="test-content">
+                            <p class="test-description">Discover your interests and passions</p>
+                            <button class="btn btn-primary" onclick="takeTest()">Start Test</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recommendations Page -->
+            <div id="recommendations-page" class="page">
+                <div class="page-header">
+                    <h1>Stream Recommendations</h1>
+                    <p>Detailed analysis of your recommended academic stream</p>
+                </div>
+
+                <div class="recommendation-content">
+                    <div class="stream-result">
+                        <div class="stream-header">
+                            <div class="stream-icon science large">
+                                <i class="fas fa-flask"></i>
+                            </div>
+                            <div class="stream-details">
+                                <h2>Science Stream</h2>
+                                <div class="confidence-badge">92% Confidence Match</div>
+                            </div>
+                        </div>
+
+                        <div class="analysis-grid">
+                            <div class="card strengths-card">
+                                <h3>Your Strengths</h3>
+                                <ul class="strengths-list">
+                                    <li><i class="fas fa-check"></i> Strong analytical thinking</li>
+                                    <li><i class="fas fa-check"></i> Excellent problem-solving skills</li>
+                                    <li><i class="fas fa-check"></i> High mathematical aptitude</li>
+                                    <li><i class="fas fa-check"></i> Scientific curiosity</li>
+                                </ul>
+                            </div>
+
+                            <div class="card improvement-card">
+                                <h3>Areas to Develop</h3>
+                                <ul class="improvement-list">
+                                    <li><i class="fas fa-arrow-up"></i> Communication skills</li>
+                                    <li><i class="fas fa-arrow-up"></i> Creative expression</li>
+                                    <li><i class="fas fa-arrow-up"></i> Leadership abilities</li>
+                                </ul>
+                            </div>
+
+                            <div class="card careers-preview">
+                                <h3>Suggested Career Paths</h3>
+                                <div class="career-tags">
+                                    <span class="career-tag">Engineering</span>
+                                    <span class="career-tag">Medicine</span>
+                                    <span class="career-tag">Research</span>
+                                    <span class="career-tag">Technology</span>
+                                </div>
+                                <button class="btn btn-primary" onclick="showPage('career-paths')">Explore All Careers</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Career Paths Page -->
+            <div id="career-paths-page" class="page">
+                <div class="page-header">
+                    <h1>Career Paths</h1>
+                    <p>Explore different streams and their career opportunities</p>
+                </div>
+
+                <div class="streams-grid">
+                    <div class="stream-card science-stream">
+                        <div class="stream-card-header">
+                            <!-- Simplified career path icons -->
+                            <div class="stream-icon">
+                                <i class="fas fa-flask"></i>
+                            </div>
+                            <h3>Science Stream</h3>
+                        </div>
+                        <div class="stream-card-content">
+                            <div class="careers-list">
+                                <h4>Popular Careers:</h4>
+                                <ul>
+                                    <li>Engineering (₹5-15 LPA)</li>
+                                    <li>Medicine (₹8-25 LPA)</li>
+                                    <li>Research Scientist (₹6-20 LPA)</li>
+                                    <li>Data Scientist (₹8-30 LPA)</li>
+                                </ul>
+                            </div>
+                            <div class="opportunities">
+                                <span class="opportunity-tag">High Growth</span>
+                                <span class="opportunity-tag">Global Opportunities</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stream-card commerce-stream">
+                        <div class="stream-card-header">
+                            <!-- Simplified career path icons -->
+                            <div class="stream-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3>Commerce Stream</h3>
+                        </div>
+                        <div class="stream-card-content">
+                            <div class="careers-list">
+                                <h4>Popular Careers:</h4>
+                                <ul>
+                                    <li>Chartered Accountant (₹6-20 LPA)</li>
+                                    <li>Investment Banking (₹10-50 LPA)</li>
+                                    <li>Business Analyst (₹5-15 LPA)</li>
+                                    <li>Entrepreneur (Variable)</li>
+                                </ul>
+                            </div>
+                            <div class="opportunities">
+                                <span class="opportunity-tag">Business Leadership</span>
+                                <span class="opportunity-tag">Financial Growth</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stream-card arts-stream">
+                        <div class="stream-card-header">
+                            <!-- Simplified career path icons -->
+                            <div class="stream-icon">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <h3>Arts Stream</h3>
+                        </div>
+                        <div class="stream-card-content">
+                            <div class="careers-list">
+                                <h4>Popular Careers:</h4>
+                                <ul>
+                                    <li>Civil Services (₹7-15 LPA)</li>
+                                    <li>Journalism (₹4-12 LPA)</li>
+                                    <li>Psychology (₹5-18 LPA)</li>
+                                    <li>Creative Arts (₹3-25 LPA)</li>
+                                </ul>
+                            </div>
+                            <div class="opportunities">
+                                <span class="opportunity-tag">Creative Expression</span>
+                                <span class="opportunity-tag">Social Impact</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <script src="../js/dashboard.js"></script>
+</body>
+</html>
