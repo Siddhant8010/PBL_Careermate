@@ -3,274 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Career Awareness Project - Student Registration</title>
-    <!-- linking external CSS file -->
+    <title>Student Registration Form</title>
     <link rel="stylesheet" href="../css/registeration.css">
 </head>
 <body>
-    <header class="top-bar">
-        <div class="top-bar-content">
-            <div class="project-title">Career Awareness Project</div>
-            <div class="progress-indicator">
-                <span class="progress-step active" id="step-form">Form</span>
-                <span class="progress-step" id="step-review">Review</span>
-                <span class="progress-step" id="step-success">Success</span>
-            </div>
+    <div class="form-container">
+        <div class="form-header">
+            <h1 class="form-title">Student Registration</h1>
+            <p class="form-subtitle">Please fill in your details to complete registration</p>
         </div>
-    </header>
 
-    <main>
-        <div class="form-card">
-            <div class="form-header">
-                <h1 class="form-title">Student Registration</h1>
-                <p class="form-subtitle">Join our Career Awareness Project and explore your future possibilities</p>
-            </div>
-
-            <form id="registrationForm" novalidate>
-                <div class="form-grid">
-                    <div>
-                        <fieldset>
-                            <legend>Personal Details</legend>
-                            
-                            <div class="form-group">
-                                <label for="firstName" class="required">First Name</label>
-                                <input type="text" id="firstName" name="firstName" required>
-                                <div class="error-message" id="firstName-error"></div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="surname" class="required">Surname</label>
-                                <input type="text" id="surname" name="surname" required>
-                                <div class="error-message" id="surname-error"></div>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Gender</label>
-                                <div class="radio-group">
-                                    <div class="radio-item">
-                                        <input type="radio" id="male" name="gender" value="Male">
-                                        <label for="male">Male</label>
-                                    </div>
-                                    <div class="radio-item">
-                                        <input type="radio" id="female" name="gender" value="Female">
-                                        <label for="female">Female</label>
-                                    </div>
-                                    <div class="radio-item">
-                                        <input type="radio" id="prefer-not-say" name="gender" value="Prefer not to say">
-                                        <label for="prefer-not-say">Prefer not to say</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="dob" class="required">Date of Birth</label>
-                                <input type="date" id="dob" name="dob" required>
-                                <div class="error-message" id="dob-error"></div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="photo">Photo (Optional)</label>
-                                <input type="file" id="photo" name="photo" accept="image/*">
-                                <div class="photo-preview" id="photoPreview">
-                                    <img id="previewImg" alt="Photo preview">
-                                </div>
-                            </div>
-                        </fieldset>
-
-                        <fieldset>
-                            <legend>Contact</legend>
-                            
-                            <div class="form-group">
-                                <label for="phone" class="required">Phone</label>
-                                <input type="tel" id="phone" name="phone" required>
-                                <div class="helper-text">Enter 10-digit Indian mobile number</div>
-                                <div class="error-message" id="phone-error"></div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="city">City</label>
-                                <input type="text" id="city" name="city">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="state">State</label>
-                                <select id="state" name="state">
-                                    <option value="">Select State</option>
-                                    <option value="Andhra Pradesh">Andhra Pradesh</option>
-                                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                                    <option value="Assam">Assam</option>
-                                    <option value="Bihar">Bihar</option>
-                                    <option value="Chhattisgarh">Chhattisgarh</option>
-                                    <option value="Goa">Goa</option>
-                                    <option value="Gujarat">Gujarat</option>
-                                    <option value="Haryana">Haryana</option>
-                                    <option value="Himachal Pradesh">Himachal Pradesh</option>
-                                    <option value="Jharkhand">Jharkhand</option>
-                                    <option value="Karnataka">Karnataka</option>
-                                    <option value="Kerala">Kerala</option>
-                                    <option value="Madhya Pradesh">Madhya Pradesh</option>
-                                    <option value="Maharashtra">Maharashtra</option>
-                                    <option value="Manipur">Manipur</option>
-                                    <option value="Meghalaya">Meghalaya</option>
-                                    <option value="Mizoram">Mizoram</option>
-                                    <option value="Nagaland">Nagaland</option>
-                                    <option value="Odisha">Odisha</option>
-                                    <option value="Punjab">Punjab</option>
-                                    <option value="Rajasthan">Rajasthan</option>
-                                    <option value="Sikkim">Sikkim</option>
-                                    <option value="Tamil Nadu">Tamil Nadu</option>
-                                    <option value="Telangana">Telangana</option>
-                                    <option value="Tripura">Tripura</option>
-                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
-                                    <option value="Uttarakhand">Uttarakhand</option>
-                                    <option value="West Bengal">West Bengal</option>
-                                    <option value="Delhi">Delhi</option>
-                                </select>
-                            </div>
-                        </fieldset>
+        <form id="registrationForm">
+            <!-- Personal Information Section -->
+            <div class="form-section">
+                <h2 class="section-title">Personal Information</h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name *</label>
+                        <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
+                        <div class="error-message" id="firstNameError">Please enter your first name</div>
                     </div>
-
-                    <div>
-                        <fieldset>
-                            <legend>Academics – School</legend>
-                            
-                            <div class="form-group">
-                                <label for="board">10th Board</label>
-                                <select id="board" name="board">
-                                    <option value="">Select Board</option>
-                                    <option value="CBSE">CBSE</option>
-                                    <option value="ICSE">ICSE</option>
-                                    <option value="State Board">State Board</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label>10th Result</label>
-                                <div class="radio-group">
-                                    <div class="radio-item">
-                                        <input type="radio" id="percentage" name="resultType" value="Percentage">
-                                        <label for="percentage">Percentage</label>
-                                    </div>
-                                </div>
-                                <div class="conditional-input" id="percentageInput">
-                                    <label for="percentageValue">Percentage (0-100)</label>
-                                    <input type="number" id="percentageValue" name="percentageValue" min="0" max="100" step="0.1">
-                                    <div class="error-message" id="percentage-error"></div>
-                                </div>
-                            </div>
-                        </fieldset>
-
-                        <fieldset>
-                            <legend>Career Preferences & Interests</legend>
-                            
-                            <div class="form-group">
-                                <label for="careerInterest">Primary Career Interest</label>
-                                <select id="careerInterest" name="careerInterest">
-                                    <option value="">Select Interest</option>
-                                    <option value="Engineering">Engineering</option>
-                                    <option value="Medicine">Medicine</option>
-                                    <option value="Design">Design</option>
-                                    <option value="Law">Law</option>
-                                    <option value="Management">Management</option>
-                                    <option value="Data/IT">Data/IT</option>
-                                    <option value="Government">Government</option>
-                                    <option value="Arts">Arts</option>
-                                    <option value="Media">Media</option>
-                                    <option value="Entrepreneurship">Entrepreneurship</option>
-                                    <option value="Not Sure Yet">Not Sure Yet</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Skills/Interests</label>
-                                <div class="checkbox-group">
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="coding" name="skills" value="Coding">
-                                        <label for="coding">Coding</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="design" name="skills" value="Design">
-                                        <label for="design">Design</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="speaking" name="skills" value="Public Speaking">
-                                        <label for="speaking">Public Speaking</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="writing" name="skills" value="Writing">
-                                        <label for="writing">Writing</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="research" name="skills" value="Research">
-                                        <label for="research">Research</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="sports" name="skills" value="Sports">
-                                        <label for="sports">Sports</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="music" name="skills" value="Music">
-                                        <label for="music">Music</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="social" name="skills" value="Social Work">
-                                        <label for="social">Social Work</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="other-skill" name="skills" value="Other">
-                                        <label for="other-skill">Other</label>
-                                    </div>
-                                </div>
-                                <div class="conditional-input" id="otherSkillInput">
-                                    <label for="otherSkillText">Please specify</label>
-                                    <input type="text" id="otherSkillText" name="otherSkillText">
-                                </div>
-                            </div>
-                        </fieldset>
-
-                        <fieldset>
-                            <legend>Consents & Submission</legend>
-                            
-                            <div class="form-group">
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="accuracy" name="accuracy" required>
-                                    <label for="accuracy" class="required">I confirm the information provided is accurate.</label>
-                                </div>
-                                <div class="error-message" id="accuracy-error"></div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="consent" name="consent" required>
-                                    <label for="consent" class="required">I consent to be contacted for the Career Awareness Project.</label>
-                                </div>
-                                <div class="error-message" id="consent-error"></div>
-                            </div>
-                        </fieldset>
+                    
+                    <div class="form-group">
+                        <label for="middleName">Middle Name</label>
+                        <input type="text" id="middleName" name="middleName" placeholder="Enter your middle name (optional)">
+                        <div class="error-message" id="middleNameError">Please enter a valid middle name</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lastName">Last Name *</label>
+                        <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" required>
+                        <div class="error-message" id="lastNameError">Please enter your last name</div>
                     </div>
                 </div>
 
-                <div class="button-group">
-                    <button type="submit" class="btn-primary">Submit</button>
-                    <button type="button" class="btn-secondary" id="resetBtn">Reset</button>
-                    <button type="button" class="btn-outline" id="printBtn">Print</button>
+                <!-- Added gender field -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="gender">Gender *</label>
+                        <select id="gender" name="gender" required>
+                            <option value="">Select your gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <div class="error-message" id="genderError">Please select your gender</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Enter 10-digit phone number" required>
+                        <div class="error-message" id="phoneError">Please enter a valid 10-digit phone number</div>
+                    </div>
                 </div>
-            </form>
 
-            <div class="success-screen" id="successScreen">
-                <h2 class="success-title">Registration Successful!</h2>
-                <p>Thank you for registering for the Career Awareness Project. Here's a summary of your information:</p>
-                <div class="summary-list" id="summaryList"></div>
-                <div class="button-group">
-                    <button type="button" class="btn-primary" id="newRegistration">New Registration</button>
-                    <button type="button" class="btn-outline" id="printSummary">Print Summary</button>
+                <!-- Added city and state fields -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="city">City *</label>
+                        <input type="text" id="city" name="city" placeholder="Enter your city" required>
+                        <div class="error-message" id="cityError">Please enter your city</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="state">State *</label>
+                        <input type="text" id="state" name="state" placeholder="Enter your state" required>
+                        <div class="error-message" id="stateError">Please enter your state</div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="age">Age *</label>
+                        <input type="number" id="age" name="age" placeholder="Enter your age" min="15" max="25" required>
+                        <div class="error-message" id="ageError">Age must be between 15 and 25</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dob">Date of Birth *</label>
+                        <input type="date" id="dob" name="dob" required>
+                        <div class="error-message" id="dobError">Please select your date of birth</div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
 
-    <!-- linking external JavaScript file -->
+            <!-- Education Section -->
+            <div class="form-section">
+                <h2 class="section-title">Educational Details</h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="tenthPercentage">10th Percentage *</label>
+                        <input type="number" id="tenthPercentage" name="tenthPercentage" placeholder="Enter percentage" min="0" max="100" step="0.01" required>
+                        <div class="error-message" id="tenthPercentageError">Please enter a valid percentage (0-100)</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="board">Board *</label>
+                        <select id="board" name="board" required>
+                            <option value="">Select your board</option>
+                            <option value="SSC">SSC</option>
+                            <option value="CBSE">CBSE</option>
+                            <option value="ICSE">ICSE</option>
+                            
+                        </select>
+                        <div class="error-message" id="boardError">Please select your board</div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="physicsMarks">Physics Marks *</label>
+                        <input type="number" id="physicsMarks" name="physicsMarks" placeholder="Enter Physics marks" min="0" max="100" required>
+                        <div class="error-message" id="physicsMarksError">Please enter valid Physics marks (0-100)</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="chemistryMarks">Chemistry Marks *</label>
+                        <input type="number" id="chemistryMarks" name="chemistryMarks" placeholder="Enter Chemistry marks" min="0" max="100" required>
+                        <div class="error-message" id="chemistryMarksError">Please enter valid Chemistry marks (0-100)</div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="mathsMarks">Maths Marks *</label>
+                        <input type="number" id="mathsMarks" name="mathsMarks" placeholder="Enter Maths marks" min="0" max="100" required>
+                        <div class="error-message" id="mathsMarksError">Please enter valid Maths marks (0-100)</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="biologyMarks">Biology Marks *</label>
+                        <input type="number" id="biologyMarks" name="biologyMarks" placeholder="Enter Biology marks" min="0" max="100" required>
+                        <div class="error-message" id="biologyMarksError">Please enter valid Biology marks (0-100)</div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="interest">Area of Interest *</label>
+                        <input type="text" id="interest" name="interest" placeholder="e.g., Engineering, Medicine, Commerce" required>
+                        <div class="error-message" id="interestError">Please enter your area of interest</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Added consent section -->
+            <div class="form-section">
+                <h2 class="section-title">Consents & Submission</h2>
+                
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="accuracyConsent" name="accuracyConsent" required>
+                            <span class="checkmark"></span>
+                            I confirm the information provided is accurate. *
+                        </label>
+                        <div class="error-message" id="accuracyConsentError">Please confirm the accuracy of your information</div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="contactConsent" name="contactConsent" required>
+                            <span class="checkmark"></span>
+                            I consent to be contacted for the Career Awareness Project. *
+                        </label>
+                        <div class="error-message" id="contactConsentError">Please provide consent to be contacted</div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                Register Now
+            </button>
+
+            <div class="success-message" id="successMessage">
+                🎉 Registration successful! Welcome aboard. You will receive a confirmation email shortly.
+            </div>
+        </form>
+    </div>
+
     <script src="../js/registeration.js"></script>
 </body>
 </html>
