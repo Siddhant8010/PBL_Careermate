@@ -1,299 +1,285 @@
-// Form validation and UI logic
-const form = document.getElementById("registrationForm")
-const successScreen = document.getElementById("successScreen")
+document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('registrationForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
 
-// Validation patterns
-const namePattern = /^[a-zA-Z\s]+$/
-const phonePattern = /^[6-9]\d{9}$/
+            // Validation functions
+            function validateName(name) {
+                return name.trim().length >= 2 && /^[a-zA-Z\s]+$/.test(name.trim());
+            }
 
-// Age calculation function
-function calculateAge(birthDate) {
-  const today = new Date()
-  const birth = new Date(birthDate)
-  let age = today.getFullYear() - birth.getFullYear()
-  const monthDiff = today.getMonth() - birth.getMonth()
+            function validatePhone(phone) {
+                return /^[6-9]\d{9}$/.test(phone.replace(/\s+/g, ''));
+            }
 
-  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
-    age--
-  }
+            function validateAge(age) {
+                const ageNum = parseInt(age);
+                return ageNum >= 15 && ageNum <= 25;
+            }
 
-  return age
-}
+            function validatePercentage(percentage) {
+                const percentNum = parseFloat(percentage);
+                return percentNum >= 0 && percentNum <= 100;
+            }
 
-// Show/hide error messages
-function showError(fieldId, message) {
-  const field = document.getElementById(fieldId)
-  const errorElement = document.getElementById(fieldId + "-error")
+            function validateSubjectMarks(marks) {
+                const marksNum = parseInt(marks);
+                return marksNum >= 0 && marksNum <= 100;
+            }
 
-  field.setAttribute("aria-invalid", "true")
-  errorElement.textContent = message
-  errorElement.style.display = "block"
-}
+            function validateCity(city) {
+                return city.trim().length >= 2 && /^[a-zA-Z\s]+$/.test(city.trim());
+            }
 
-function hideError(fieldId) {
-  const field = document.getElementById(fieldId)
-  const errorElement = document.getElementById(fieldId + "-error")
+            function validateState(state) {
+                return state.trim().length >= 2 && /^[a-zA-Z\s]+$/.test(state.trim());
+            }
 
-  field.setAttribute("aria-invalid", "false")
-  errorElement.style.display = "none"
-}
+            function showError(fieldId, message) {
+                const field = document.getElementById(fieldId);
+                const errorElement = document.getElementById(fieldId + 'Error');
+                
+                field.classList.add('error');
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
 
-// Validation functions
-function validateName(value, fieldId) {
-  if (!value.trim()) {
-    showError(fieldId, "This field is required")
-    return false
-  }
+            function hideError(fieldId) {
+                const field = document.getElementById(fieldId);
+                const errorElement = document.getElementById(fieldId + 'Error');
+                
+                field.classList.remove('error');
+                errorElement.style.display = 'none';
+            }
 
-  if (!namePattern.test(value)) {
-    showError(fieldId, "Only letters and spaces are allowed")
-    return false
-  }
+            function validateField(fieldId, validator, errorMessage) {
+                const field = document.getElementById(fieldId);
+                const value = field.value.trim();
+                
+                if (!value || !validator(value)) {
+                    showError(fieldId, errorMessage);
+                    return false;
+                } else {
+                    hideError(fieldId);
+                    return true;
+                }
+            }
 
-  hideError(fieldId)
-  return true
-}
+            // Real-time validation
+            document.getElementById('firstName').addEventListener('blur', function() {
+                validateField('firstName', validateName, 'Please enter a valid first name (letters only, min 2 characters)');
+            });
 
-function validatePhone(value) {
-  if (!value.trim()) {
-    showError("phone", "Phone number is required")
-    return false
-  }
+            document.getElementById('middleName').addEventListener('blur', function() {
+                const value = this.value.trim();
+                if (value && !validateName(value)) {
+                    showError('middleName', 'Please enter a valid middle name (letters only, min 2 characters)');
+                } else {
+                    hideError('middleName');
+                }
+            });
 
-  if (!phonePattern.test(value)) {
-    showError("phone", "Enter a valid 10-digit Indian mobile number starting with 6-9")
-    return false
-  }
+            document.getElementById('lastName').addEventListener('blur', function() {
+                validateField('lastName', validateName, 'Please enter a valid last name (letters only, min 2 characters)');
+            });
 
-  hideError("phone")
-  return true
-}
+            document.getElementById('phone').addEventListener('blur', function() {
+                validateField('phone', validatePhone, 'Please enter a valid 10-digit phone number starting with 6-9');
+            });
 
-function validateDOB(value) {
-  if (!value) {
-    showError("dob", "Date of birth is required")
-    return false
-  }
+            document.getElementById('age').addEventListener('blur', function() {
+                validateField('age', validateAge, 'Age must be between 15 and 25');
+            });
 
-  const age = calculateAge(value)
+            document.getElementById('dob').addEventListener('blur', function() {
+                validateField('dob', validateDateOfBirth, 'Please select a valid date of birth (age 15-25)');
+            });
 
-  if (age < 13 || age > 25) {
-    showError("dob", "Age must be between 13 and 25 years")
-    return false
-  }
+            document.getElementById('tenthPercentage').addEventListener('blur', function() {
+                validateField('tenthPercentage', validatePercentage, 'Please enter a valid percentage (0-100)');
+            });
 
-  hideError("dob")
-  return true
-}
+            document.getElementById('physicsMarks').addEventListener('blur', function() {
+                validateField('physicsMarks', validateSubjectMarks, 'Please enter valid Physics marks (0-100)');
+            });
 
-function validatePercentage(value) {
-  const percentageRadio = document.getElementById("percentage")
+            document.getElementById('chemistryMarks').addEventListener('blur', function() {
+                validateField('chemistryMarks', validateSubjectMarks, 'Please enter valid Chemistry marks (0-100)');
+            });
 
-  if (percentageRadio.checked) {
-    if (!value) {
-      showError("percentage", "Percentage is required when selected")
-      return false
-    }
+            document.getElementById('mathsMarks').addEventListener('blur', function() {
+                validateField('mathsMarks', validateSubjectMarks, 'Please enter valid Maths marks (0-100)');
+            });
 
-    const num = Number.parseFloat(value)
-    if (isNaN(num) || num < 0 || num > 100) {
-      showError("percentage", "Percentage must be between 0 and 100")
-      return false
-    }
-  }
+            document.getElementById('biologyMarks').addEventListener('blur', function() {
+                validateField('biologyMarks', validateSubjectMarks, 'Please enter valid Biology marks (0-100)');
+            });
 
-  hideError("percentage")
-  return true
-}
+            document.getElementById('board').addEventListener('change', function() {
+                if (this.value) {
+                    hideError('board');
+                }
+            });
 
-function validateConsent(fieldId) {
-  const field = document.getElementById(fieldId)
+            document.getElementById('interest').addEventListener('blur', function() {
+                if (this.value.trim().length >= 3) {
+                    hideError('interest');
+                } else {
+                    showError('interest', 'Please enter your area of interest (min 3 characters)');
+                }
+            });
 
-  if (!field.checked) {
-    showError(fieldId, "This consent is required")
-    return false
-  }
+            document.getElementById('gender').addEventListener('change', function() {
+                if (this.value) {
+                    hideError('gender');
+                }
+            });
 
-  hideError(fieldId)
-  return true
-}
+            document.getElementById('city').addEventListener('blur', function() {
+                validateField('city', validateCity, 'Please enter a valid city name (letters only, min 2 characters)');
+            });
 
-// Event listeners for real-time validation
-document.getElementById("firstName").addEventListener("blur", function () {
-  validateName(this.value, "firstName")
-})
+            document.getElementById('state').addEventListener('blur', function() {
+                validateField('state', validateState, 'Please enter a valid state name (letters only, min 2 characters)');
+            });
 
-document.getElementById("surname").addEventListener("blur", function () {
-  validateName(this.value, "surname")
-})
+            document.getElementById('accuracyConsent').addEventListener('change', function() {
+                if (this.checked) {
+                    hideError('accuracyConsent');
+                }
+            });
 
-document.getElementById("phone").addEventListener("blur", function () {
-  validatePhone(this.value)
-})
+            document.getElementById('contactConsent').addEventListener('change', function() {
+                if (this.checked) {
+                    hideError('contactConsent');
+                }
+            });
 
-document.getElementById("dob").addEventListener("change", function () {
-  validateDOB(this.value)
-})
+            // Phone number formatting
+            document.getElementById('phone').addEventListener('input', function() {
+                let value = this.value.replace(/\D/g, '');
+                if (value.length > 10) {
+                    value = value.slice(0, 10);
+                }
+                this.value = value;
+            });
 
-document.getElementById("percentageValue").addEventListener("blur", function () {
-  validatePercentage(this.value)
-})
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                let isValid = true;
+                
+                // Validate all fields
+                isValid &= validateField('firstName', validateName, 'Please enter a valid first name (letters only, min 2 characters)');
+                
+                // Validate middle name if provided
+                const middleName = document.getElementById('middleName');
+                if (middleName.value.trim() && !validateName(middleName.value)) {
+                    showError('middleName', 'Please enter a valid middle name (letters only, min 2 characters)');
+                    isValid = false;
+                } else {
+                    hideError('middleName');
+                }
+                
+                isValid &= validateField('lastName', validateName, 'Please enter a valid last name (letters only, min 2 characters)');
+                isValid &= validateField('phone', validatePhone, 'Please enter a valid 10-digit phone number starting with 6-9');
+                isValid &= validateField('age', validateAge, 'Age must be between 15 and 25');
+                isValid &= validateField('dob', validateDateOfBirth, 'Please select a valid date of birth (age 15-25)');
+                isValid &= validateField('tenthPercentage', validatePercentage, 'Please enter a valid percentage (0-100)');
+                isValid &= validateField('physicsMarks', validateSubjectMarks, 'Please enter valid Physics marks (0-100)');
+                isValid &= validateField('chemistryMarks', validateSubjectMarks, 'Please enter valid Chemistry marks (0-100)');
+                isValid &= validateField('mathsMarks', validateSubjectMarks, 'Please enter valid Maths marks (0-100)');
+                isValid &= validateField('biologyMarks', validateSubjectMarks, 'Please enter valid Biology marks (0-100)');
+                isValid &= validateField('city', validateCity, 'Please enter a valid city name (letters only, min 2 characters)');
+                isValid &= validateField('state', validateState, 'Please enter a valid state name (letters only, min 2 characters)');
+                
+                // Validate board selection
+                const board = document.getElementById('board');
+                if (!board.value) {
+                    showError('board', 'Please select your board');
+                    isValid = false;
+                } else {
+                    hideError('board');
+                }
+                
+                // Validate interest
+                const interest = document.getElementById('interest');
+                if (interest.value.trim().length < 3) {
+                    showError('interest', 'Please enter your area of interest (min 3 characters)');
+                    isValid = false;
+                } else {
+                    hideError('interest');
+                }
+                
+                // Validate gender selection
+                const gender = document.getElementById('gender');
+                if (!gender.value) {
+                    showError('gender', 'Please select your gender');
+                    isValid = false;
+                } else {
+                    hideError('gender');
+                }
 
-// Photo preview functionality
-document.getElementById("photo").addEventListener("change", (e) => {
-  const file = e.target.files[0]
-  const preview = document.getElementById("photoPreview")
-  const img = document.getElementById("previewImg")
+                // Validate consent checkboxes
+                const accuracyConsent = document.getElementById('accuracyConsent');
+                if (!accuracyConsent.checked) {
+                    showError('accuracyConsent', 'Please confirm the accuracy of your information');
+                    isValid = false;
+                } else {
+                    hideError('accuracyConsent');
+                }
 
-  if (file) {
-    const reader = new FileReader()
-    reader.onload = (e) => {
-      img.src = e.target.result
-      preview.style.display = "block"
-    }
-    reader.readAsDataURL(file)
-  } else {
-    preview.style.display = "none"
-  }
-})
+                const contactConsent = document.getElementById('contactConsent');
+                if (!contactConsent.checked) {
+                    showError('contactConsent', 'Please provide consent to be contacted');
+                    isValid = false;
+                } else {
+                    hideError('contactConsent');
+                }
+                
+                if (isValid) {
+                    // Show loading state
+                    submitBtn.classList.add('loading');
+                    submitBtn.textContent = 'Processing...';
+                    
+                    // Simulate form submission
+                    setTimeout(() => {
+                        submitBtn.classList.remove('loading');
+                        submitBtn.textContent = 'Register Now';
+                        successMessage.style.display = 'block';
+                        form.reset();
+                        
+                        // Scroll to success message
+                        successMessage.scrollIntoView({ behavior: 'smooth' });
+                        
+                        // Hide success message after 5 seconds
+                        setTimeout(() => {
+                            successMessage.style.display = 'none';
+                        }, 5000);
+                    }, 2000);
+                } else {
+                    // Scroll to first error
+                    const firstError = document.querySelector('.error');
+                    if (firstError) {
+                        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }
+            });
 
-// Conditional input visibility
-document.getElementById("percentage").addEventListener("change", function () {
-  const percentageInput = document.getElementById("percentageInput")
-  percentageInput.style.display = this.checked ? "block" : "none"
-})
-
-document.getElementById("other-skill").addEventListener("change", function () {
-  const otherInput = document.getElementById("otherSkillInput")
-  otherInput.style.display = this.checked ? "block" : "none"
-})
-
-// Form submission
-form.addEventListener("submit", (e) => {
-  e.preventDefault()
-
-  let isValid = true
-
-  // Validate all required fields
-  isValid &= validateName(document.getElementById("firstName").value, "firstName")
-  isValid &= validateName(document.getElementById("surname").value, "surname")
-  isValid &= validatePhone(document.getElementById("phone").value)
-  isValid &= validateDOB(document.getElementById("dob").value)
-  isValid &= validatePercentage(document.getElementById("percentageValue").value)
-  isValid &= validateConsent("accuracy")
-  isValid &= validateConsent("consent")
-
-  if (isValid) {
-    showSuccessScreen()
-    updateProgressIndicator("success")
-  }
-})
-
-// Reset functionality
-document.getElementById("resetBtn").addEventListener("click", () => {
-  form.reset()
-  document.getElementById("photoPreview").style.display = "none"
-  document.getElementById("percentageInput").style.display = "none"
-  document.getElementById("otherSkillInput").style.display = "none"
-
-  // Hide all error messages
-  const errorMessages = document.querySelectorAll(".error-message")
-  errorMessages.forEach((error) => (error.style.display = "none"))
-
-  // Reset aria-invalid attributes
-  const inputs = document.querySelectorAll("input, select")
-  inputs.forEach((input) => input.setAttribute("aria-invalid", "false"))
-})
-
-// Print functionality
-document.getElementById("printBtn").addEventListener("click", () => {
-  window.print()
-})
-
-document.getElementById("printSummary").addEventListener("click", () => {
-  window.print()
-})
-
-// Success screen functionality
-function showSuccessScreen() {
-  form.style.display = "none"
-  successScreen.style.display = "block"
-  generateSummary()
-}
-
-function generateSummary() {
-  const formData = new FormData(form)
-  const summaryList = document.getElementById("summaryList")
-  summaryList.innerHTML = ""
-
-  // Collect form data
-  const data = {
-    "First Name": formData.get("firstName"),
-    Surname: formData.get("surname"),
-    Gender: formData.get("gender") || "Not specified",
-    "Date of Birth": formData.get("dob"),
-    Phone: formData.get("phone"),
-    City: formData.get("city") || "Not specified",
-    State: formData.get("state") || "Not specified",
-    "10th Board": formData.get("board") || "Not specified",
-    "Primary Career Interest": formData.get("careerInterest") || "Not specified",
-  }
-
-  // Add percentage if selected
-  if (formData.get("resultType") === "Percentage") {
-    data["10th Percentage"] = formData.get("percentageValue") + "%"
-  }
-
-  // Add skills
-  const skills = formData.getAll("skills")
-  if (skills.length > 0) {
-    let skillsText = skills.join(", ")
-    if (skills.includes("Other") && formData.get("otherSkillText")) {
-      skillsText = skillsText.replace("Other", formData.get("otherSkillText"))
-    }
-    data["Skills/Interests"] = skillsText
-  }
-
-  // Generate summary HTML
-  Object.entries(data).forEach(([key, value]) => {
-    if (value) {
-      const item = document.createElement("div")
-      item.className = "summary-item"
-      item.innerHTML = `
-                <span class="summary-label">${key}:</span>
-                <span>${value}</span>
-            `
-      summaryList.appendChild(item)
-    }
-  })
-}
-
-// New registration
-document.getElementById("newRegistration").addEventListener("click", () => {
-  form.style.display = "block"
-  successScreen.style.display = "none"
-  form.reset()
-  document.getElementById("photoPreview").style.display = "none"
-  document.getElementById("percentageInput").style.display = "none"
-  document.getElementById("otherSkillInput").style.display = "none"
-  updateProgressIndicator("form")
-
-  // Hide all error messages
-  const errorMessages = document.querySelectorAll(".error-message")
-  errorMessages.forEach((error) => (error.style.display = "none"))
-})
-
-// Progress indicator
-function updateProgressIndicator(step) {
-  const steps = ["form", "review", "success"]
-  steps.forEach((s) => {
-    document.getElementById(`step-${s}`).classList.remove("active")
-  })
-
-  if (step === "success") {
-    document.getElementById("step-review").classList.add("active")
-    document.getElementById("step-success").classList.add("active")
-  } else {
-    document.getElementById(`step-${step}`).classList.add("active")
-  }
-}
+            // Auto-calculate age from date of birth
+            document.getElementById('dob').addEventListener('change', function() {
+                if (this.value) {
+                    const birthDate = new Date(this.value);
+                    const today = new Date();
+                    let age = today.getFullYear() - birthDate.getFullYear();
+                    const monthDiff = today.getMonth() - birthDate.getMonth();
+                    
+                    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                        age--;
+                    }
+                    
+                    document.getElementById('age').value = age;
+                }
+            });
+        });
